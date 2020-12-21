@@ -2,29 +2,37 @@ package boardGame;
 
 public class Board {
 
-    private int row;
-    private int column;
+    private int rows;
+    private int columns;
     private Piece[][] pieces;
 
     public Board(int row, int column) {
-        this.row = row;
-        this.column = column;
-        pieces = new Piece[row][column];
+        this.rows = row;
+        this.columns = column;
+        pieces = new Piece[rows][columns];
     }
 
     public int getRow() {
-        return row;
+        return rows;
     }
 
     public void setRow(int row) {
-        this.row = row;
+        this.rows = row;
     }
 
     public int getColumn() {
-        return column;
+        return columns;
     }
 
     public void setColumn(int column) {
-        this.column = column;
+        this.columns = column;
     }
+
+    public Piece piece(int row, int column) {
+        return pieces[row][column];
+    }
+    public Piece piece(Position position) {
+        return pieces[position.getRow()][position.getColumn()];
+    }
+
 }
