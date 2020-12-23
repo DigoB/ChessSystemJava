@@ -6,12 +6,18 @@ import boardGame.Position;
 import chess.pieces.King;
 import chess.pieces.Rook;
 
+import java.util.ArrayList;
+import java.util.List;
+
 // Classe que contém as regras do jogo;
 public class ChessMatch {
 
     private int turn;
     private Color currentPlayer;
     private Board board;
+
+    private List<Piece> piecesOnTheBoard = new ArrayList<>();
+    private List<Piece> capturedPieces = new ArrayList<>();
 
     // Declaração do tamanho do tabuleiro;
     public ChessMatch(){
@@ -59,6 +65,11 @@ public class ChessMatch {
         Piece p = board.removePiece(source);
         Piece carpturedPiece = board.removePiece(target);
         board.placePiece(p, target);
+
+        if (capturedPieces != null) {
+            piecesOnTheBoard.remove(capturedPieces);
+            capturedPieces.add(carpturedPiece);
+        }
         return carpturedPiece;
     }
 
@@ -88,7 +99,10 @@ public class ChessMatch {
     // Converte a posição da matriz para as coordenadas do tabuleiro;
     private void placeNewPiece(char column, int row, ChessPiece piece) {
         board.placePiece(piece, new ChessPosition(column, row).toPosition());
+        piecesOnTheBoard.add(piece);
     }
+
+
     // Inicia a partida colocando, as peças no tabuleiro;
     private void initialSetup() {
         placeNewPiece('c', 1, new Rook(board, Color.WHITE));
